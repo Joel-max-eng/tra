@@ -2,7 +2,7 @@
 <html lang="en">
 <head>
 <meta charset="UTF-8">
-<meta name="viewport" content="width=960">
+<meta name="viewport" content="width=device-width, initial-scale=1">
 <title>kenya Revenue Authority</title>
 <link rel="icon" type="image/png" href="images/favicon.png">
 <link rel="shortcut icon" href="favicon.ico">
@@ -221,11 +221,24 @@
 </div>
 
 <script>
-  // Scale the whole page (text, images, spacing) down when the window is narrower than the design width
+  // Shrink the WHOLE page (text, images, spacing) uniformly on any screen narrower than the design
   (function(){
-    var w = document.querySelector('.wrapper'), DESIGN = 940;
-    function fit(){ var z = Math.min(1, window.innerWidth / DESIGN); w.style.zoom = z; }
-    window.addEventListener('resize', fit); fit();
+    var w = document.querySelector('.wrapper'), DESIGN = 960;
+    w.style.transformOrigin = 'top left';
+    function fit(){
+      var vw = document.documentElement.clientWidth, z = Math.min(1, vw / DESIGN);
+      if(z < 1){
+        w.style.transform = 'scale(' + z + ')';
+        w.style.marginLeft = ((vw - 940 * z) / 2) + 'px';
+        w.style.marginRight = '0';
+        w.style.marginBottom = (-(1 - z) * w.offsetHeight) + 'px';
+      } else {
+        w.style.transform = ''; w.style.marginLeft = ''; w.style.marginRight = ''; w.style.marginBottom = '';
+      }
+    }
+    window.addEventListener('resize', fit);
+    window.addEventListener('load', fit);
+    fit();
   })();
 </script>
 <script>
